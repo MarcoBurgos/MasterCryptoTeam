@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Master Crypto</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script type="text/javascript">
+    function toggleAllPosts(btn) {
+      var posts = document.getElementById("allPostsTable");
+      var video = document.getElementById("allVideosTable");
+      if (posts.style.display === "none") {
+        posts.style.display = "table";
+        video.style.display = "none";
+      } else {
+        posts.style.display = "none";
+        video.style.display = "none";
+      }
+    }
+
+
+    function toggleAllVideos(btn) {
+      var posts = document.getElementById("allPostsTable");
+      var video = document.getElementById("allVideosTable");
+      if (video.style.display === "none") {
+        video.style.display = "table";
+        posts.style.display = "none";
+      } else {
+        posts.style.display = "none";
+        video.style.display = "none";
+      }
+    }
+    </script>
+
+
+  </head>
+  </head>
+  <body>
+    <header role="banner">
+      <h1>Panel del Administrador</h1>
+      <ul class="utilities">
+        <li class="users"><a href="#">Mi Cuenta</a></li>
+        <li class="logout warn"><a href="">Cerrar sesión</a></li>
+      </ul>
+    </header>
+
+    <nav role="navigation">
+      <ul class="main">
+        <li class="dashboard"><a href="">Dashboard</a></li>
+        <li class="write"><a href="{{url_for('posts.create_post')}}">Escribir un post</a></li>
+        <li class="edit"><a href="{{url_for('posts.create_videopost')}}">Subir un video post</a></li>
+        <li class="comments"><a href="#">Revisar comentarios</a></li>
+        <!-- <li class="users"><a href="#">Manejar usuarios</a></li> -->
+      </ul>
+    </nav>
+
+    <main role="main">
+      <section class="panel important" style="margin-top: 40px;">
+        <h2>Bienvenido a tu Dashboard </h2>
+        <ul>
+          <li>Desde aquí podrás controlar lo que sucede en tu sitio web.</li>
+          <li>Podrás crear, editar, desactivar o eliminar post.</li>
+          <li>Cargar videoblogs que estén actualmente en Youtube y desplegarlos en tu sitio web.</li>
+        </ul>
+      </section>
+      <section class="panel">
+        <h2>Posts</h2>
+        <ul>
+          <li><b>2458 </b>Posts publicados</li>
+          <li><b>18</b> Drafts</li>
+          <li><b>7</b> Videos</li>
+        </ul>
+      </section>
+      <section class="panel">
+        <h2>Chart</h2>
+        <ul>
+          <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+          <li>Aliquam tincidunt mauris eu risus.</li>
+          <li>Vestibulum auctor dapibus neque.</li>
+        </ul>
+      </section>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class=flashes>
+      {% for message in messages %}
+      <section class="panel important" style="margin-top: 40px;">
+        <h2>Post creado</h2>
+        <ul>
+          <li>{{message}}</li>
+        </ul>
+      </section>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <button style="margin: 2% 0 0 2%; float: left;" type="button" class="btn btn-primary" onclick="toggleAllPosts(this)">Ver todos los posts</button>
+  <button style="margin: 2% 0 0 2%; float: left;" type="button" class="btn btn-primary" onclick="toggleAllVideos(this)">Ver todos los videoposts</button>
+
+  <section id="allPostsTable"style="margin: 5% 0 0 0%; float: left; width: 96%; display:none">
+    <table class="table table-bordered" style="background-color: #ffffff">
+      <h2 style="margin: 0% 0 2% 2%; float: left;">Posts guardados en la base de datos</h2>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="font-weight: bold;">ID</th>
+          <th scope="col" style="font-weight: bold;">Título</th>
+          <th scope="col" style="font-weight: bold;">Fecha de creación</th>
+          <th scope="col" style="font-weight: bold;">Status</th>
+          <th scope="col" colspan="2" style="font-weight: bold;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <th scope="row">{{ post.id }}</th>
+          <td>{{ post.title }}</td>
+          <td>{{ post.date_posted }}</td>
+          <td>{{ post.status }}</td>
+          <td><a href="{{ url_for('posts.update_post', post_id=post.id) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a></td>
+          <td><a href="{{ url_for('posts.delete_post', post_id=post.id) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+
+  <section id="allVideosTable"style="margin: 5% 0 0 0%; float: left; width: 96%; display:none">
+    <table class="table table-bordered" style="background-color: #ffffff">
+      <h2 style="margin: 0% 0 2% 2%; float: left;">Videoposts guardados en la base de datos</h2>
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="font-weight: bold;">ID</th>
+          <th scope="col" style="font-weight: bold;">Título</th>
+          <th scope="col" style="font-weight: bold;">Fecha de creación</th>
+          <th scope="col" style="font-weight: bold;">Status</th>
+          <th scope="col" colspan="2" style="font-weight: bold;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in videoposts %}
+        <tr>
+          <th scope="row">{{ post.id }}</th>
+          <td>{{ post.title }}</td>
+          <td>{{ post.date_posted }}</td>
+          <td>{{ post.status }}</td>
+          <td><a href="{{ url_for('posts.update_post_videoblog', post_id=post.id) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a></td>
+          <td><a href="{{ url_for('posts.delete_post_videoblog', post_id=post.id) }}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
