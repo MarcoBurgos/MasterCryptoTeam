@@ -125,9 +125,8 @@ def update_post_videoblog(post_id):
 
             videopost.title = form.title.data
             videopost.subtitle = form.subtitle.data
-            videopost.photo_url = form.photo_url.data
+            videopost.video_link = form.video_link.data
             videopost.date_posted = datetime.now()
-            videopost.content = form.content.data
             videopost.status =  form.status.data
 
             db.session.commit()
@@ -139,11 +138,10 @@ def update_post_videoblog(post_id):
 
             form.title.data = videopost.title
             form.subtitle.data = videopost.subtitle
-            form.photo_url.data = videopost.photo_url
-            form.content.data = videopost.content
+            form.video_link.data = videopost.video_link
             form.status.data = videopost.status
 
-        return render_template('create_post.html', videopost=videopost, form=form)
+        return render_template('create_videopost.html', videopost=videopost, form=form)
 
     else:
         abort(403)
