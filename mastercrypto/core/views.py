@@ -22,7 +22,6 @@ def index():
 @core.route('/login_consoleMC', methods=['GET', 'POST'])
 def login_consoleMC():
     form = UserSignInForm()
-    print("form")
     if form.validate_on_submit():
         email = form.email.data.lower()
         password = form.password.data
