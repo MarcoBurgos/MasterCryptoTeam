@@ -42,8 +42,8 @@
     <header role="banner">
       <h1>Panel del Administrador</h1>
       <ul class="utilities">
-        <li class="users"><a href="#">Mi Cuenta</a></li>
-        <li class="logout warn"><a href="">Cerrar sesión</a></li>
+        <li class="users"><a href="#">{{ username }}</a></li>
+        <li class="logout warn"><a href="{{ url_for('core.logout')}}">Cerrar sesión</a></li>
       </ul>
     </header>
 
@@ -52,7 +52,7 @@
         <li class="dashboard"><a href="">Dashboard</a></li>
         <li class="write"><a href="{{url_for('posts.create_post')}}">Escribir un post</a></li>
         <li class="edit"><a href="{{url_for('posts.create_videopost')}}">Subir un video post</a></li>
-        <li class="comments"><a href="#">Revisar comentarios</a></li>
+        <!-- <li class="comments"><a href="#">Revisar comentarios</a></li> -->
         <!-- <li class="users"><a href="#">Manejar usuarios</a></li> -->
       </ul>
     </nav>
@@ -74,14 +74,14 @@
           <li><b>7</b> Videos</li>
         </ul>
       </section>
-      <section class="panel">
+      <!-- <section class="panel">
         <h2>Chart</h2>
         <ul>
           <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
           <li>Aliquam tincidunt mauris eu risus.</li>
           <li>Vestibulum auctor dapibus neque.</li>
         </ul>
-      </section>
+      </section> -->
       {% with messages = get_flashed_messages() %}
       {% if messages %}
       <ul class=flashes>

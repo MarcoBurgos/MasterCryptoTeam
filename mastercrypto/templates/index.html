@@ -178,7 +178,7 @@
           	<div class="blog-entry justify-content-end">
               <a href="blog-single.html" class="block-20" style="background-image: url('{{post.photo_url}}');">
               </a>
-              <div class="text p-4 float-right d-block">
+              <div class="text p-4 float-right d-block" style="height: 199px; width: 349.98px;">
               	<div class="topper d-flex align-items-center">
               		<div class="one py-2 pl-3 pr-1 align-self-stretch">
               			<span class="day">{{post.date_posted.strftime('%d')}}</span>
@@ -189,7 +189,8 @@
               		</div>
               	</div>
                 <h3 class="heading mt-2"><a href="#">{{post.title}}</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                <p>{{post.subtitle}}</p>
+                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p> -->
               </div>
             </div>
           </div>

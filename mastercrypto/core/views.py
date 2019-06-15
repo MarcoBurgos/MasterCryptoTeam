@@ -50,12 +50,14 @@ def login_consoleMC():
     return render_template('login.html', form=form)
 
 @core.route('/dashboard_MC', methods=['GET', 'POST'])
+@login_required
 def dashboard_MC():
 
     posts = Post.query.order_by(Post.date_posted.desc()).all()
     videoposts = Videopost.query.order_by(Videopost.date_posted.desc()).all()
+    username = current_user.name
 
-    return render_template('dashboard.html', posts=posts, videoposts=videoposts)
+    return render_template('dashboard.html', posts=posts, videoposts=videoposts, username=username)
 
 
 @core.route('/blog', methods=['GET', 'POST'])
@@ -63,3 +65,9 @@ def blog():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
     return render_template('blog.html', posts=posts)
+
+@core.route("/logout", methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('core.index'))
