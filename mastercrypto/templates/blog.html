@@ -33,7 +33,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Master Crypto</a>
+      <a class="navbar-brand" href="{{url_for('core.index')}}">Master Crypto</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -48,7 +48,7 @@
   </nav>
   <!-- END nav -->
 
-  <section class="hero-wrap hero-wrap-2" style="background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('static/images/hero-blog.jpg'); height: 550px;" data-stellar-background-ratio="0.5">
+  <section class="hero-wrap hero-wrap-2" style="background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url({{ url_for('static', filename='images/hero-blog.jpg') }}); height: 550px;" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
       <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -73,7 +73,7 @@
         {% for post in posts.items %}
         <div class="col-md-4 d-flex ftco-animate">
           <div class="blog-entry justify-content-end">
-            <a href="blog-single.html" class="block-20" style="background-image: url('{{post.photo_url}}');">
+            <a href="{{ url_for('posts.post', post_id=post.id) }}" class="block-20" style="background-image: url('{{post.photo_url}}');">
             </a>
             <div class="text p-4 float-right d-block">
               <div class="topper d-flex align-items-center">
@@ -85,7 +85,7 @@
                   <span class="mos">{{post.date_posted.strftime('%B')}}</span>
                 </div>
               </div>
-              <h3 class="heading mt-2"><a href="#">{{post.title}}</a></h3>
+              <h3 class="heading mt-2"><a href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
             </div>
           </div>

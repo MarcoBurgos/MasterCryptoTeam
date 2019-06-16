@@ -13,8 +13,8 @@ core = Blueprint('core',__name__)
 @core.route('/', methods=['GET', 'POST'])
 def index():
 
-    recent_posts = Post.query.order_by(Post.date_posted.desc()).limit(3).all()
-    ft_video = Videopost.query.order_by(Videopost.date_posted.desc()).one()
+    recent_posts = Post.query.filter_by(status='Publicado').order_by(Post.date_posted.desc()).limit(3).all()
+    ft_video = Videopost.query.filter_by(status='Publicado').order_by(Videopost.date_posted.desc()).one()
 
 
     return render_template('index.html', recent_posts = recent_posts, ft_video = ft_video)
@@ -63,7 +63,7 @@ def dashboard_MC():
 @core.route('/blog', methods=['GET', 'POST'])
 def blog():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
+    posts = Post.query.filter_by(status='Publicado').order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
     return render_template('blog.html', posts=posts)
 
 @core.route("/logout", methods=['GET'])
